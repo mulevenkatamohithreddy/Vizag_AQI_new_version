@@ -29,7 +29,7 @@ try:
         comp_path = f"{MODELS_DIR}/{name}_compressed.pkl"
         if os.path.exists(comp_path):
             return joblib.load(comp_path)
-        return joblib.load(path)
+        return joblib.load(path, mmap_mode='r')
 
     xgb_model = load_model_file("xgb_model")
     rf_model = load_model_file("rf_model")
