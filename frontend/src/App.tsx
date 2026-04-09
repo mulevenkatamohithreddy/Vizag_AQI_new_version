@@ -68,6 +68,7 @@ function App() {
   const [_compPrediction, setCompPrediction] = useState<PredictionData | null>(null);
   const [forecastData, setForecastData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [showShareToast, setShowShareToast] = useState(false);
   const dashboardRef = useRef<HTMLDivElement>(null);
 
@@ -119,7 +120,11 @@ function App() {
       const forecastRes = await axios.get(`${API_BASE_URL}/forecast_data?limit=500`);
       setForecastData(forecastRes.data.map((d: any) => ({ date: d.Date.split('T')[0], AQI: d.AQI_Forecast }))
         .filter((_: any, i: number) => i % 25 === 0));
-    } catch (err) { console.error(err); } 
+    } catch (err: any) { 
+      console.error(err); 
+      setError(err.response?.data?.detail || err.message || "Failed to connect to Intelligence Station. Check your connection or API URL.");
+      setTimeout(() => setError(null), 5000);
+    } 
     finally { setLoading(false); }
   };
 
@@ -455,6 +460,11 @@ function App() {
       </footer>
 
       <AnimatePresence>
+        {error && (
+          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 50 }} className="fixed bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 bg-red-500/90 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl z-[2000] flex items-center gap-3">
+             <Activity size={16} /> {error}
+          </motion.div>
+        )}
         {showShareToast && (
           <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 50 }} className="share-toast flex items-center gap-3">
             <CheckCircle2 className="text-green-400" size={18} /> REPORT COPIED TO CLIPBOARD
