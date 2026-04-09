@@ -24,9 +24,16 @@ DATA_DIR = "data"
 
 # Load models and metadata on startup
 try:
-    xgb_model = joblib.load(f"{MODELS_DIR}/xgb_model.pkl")
-    rf_model = joblib.load(f"{MODELS_DIR}/rf_model.pkl")
-    scaler = joblib.load(f"{MODELS_DIR}/scaler.pkl")
+    def load_model_file(name):
+        path = f"{MODELS_DIR}/{name}.pkl"
+        comp_path = f"{MODELS_DIR}/{name}_compressed.pkl"
+        if os.path.exists(comp_path):
+            return joblib.load(comp_path)
+        return joblib.load(path)
+
+    xgb_model = load_model_file("xgb_model")
+    rf_model = load_model_file("rf_model")
+    scaler = load_model_file("scaler")
     feature_names = joblib.load(f"{MODELS_DIR}/feature_names.pkl")
     with open(f"{MODELS_DIR}/metrics.json", "r") as f:
         model_metrics = json.load(f)

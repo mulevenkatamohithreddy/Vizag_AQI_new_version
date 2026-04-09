@@ -16,7 +16,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import './App.css';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
 const LOCATIONS = [
   { name: 'Gajuwaka', coords: [17.693, 83.219], type: 'Industrial' },
