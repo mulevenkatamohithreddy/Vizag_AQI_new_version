@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --neu-shadow-1: 10px 10px 20px #d1d5db;
+    --neu-shadow-2: -10px -10px 20px #ffffff;
+  }
+
+  [data-theme="light"] {
+    --text-main: #0f172a;
+    --text-muted: #475569;
+  }
+
+  [data-theme="dark"] {
+    --glass-bg: rgba(10, 15, 25, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --neu-shadow-1: 10px 10px 40px #010409;
+    --neu-shadow-2: -10px -10px 40px #1e293b;
+    --text-main: #ffffff;
+    --text-muted: #ffffff;
+  }
+
+  body {
+    @apply font-poppins transition-colors duration-500 ease-in-out;
+    min-height: 100vh;
+    background: var(--bg-radial);
+  }
+}
+
+:root {
+  --bg-radial: radial-gradient(circle at top right, #f1f5f9, #e2e8f0);
+}
+[data-theme="dark"] {
+  --bg-radial: radial-gradient(circle at top right, #1e293b, #020617);
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl border rounded-3xl shadow-lg transition-all duration-500;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+  }
+
+  .section-row {
+    @apply w-full max-w-7xl mx-auto px-6 py-8 space-y-8;
+  }
+
+  .aqi-value-display {
+    @apply text-8xl font-black transition-all duration-700;
+    z-index: 10;
+  }
+
+  [data-theme="light"] .aqi-value-display {
+    color: var(--aqi-primary-color);
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+  }
+
+  [data-theme="dark"] .aqi-value-display {
+    color: #fff;
+    text-shadow: 0 0 30px var(--aqi-primary-color-alpha);
+  }
+
+  .btn-premium {
+    @apply px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 
+           hover:shadow-2xl hover:shadow-blue-500/40 transform hover:-translate-y-1 active:scale-95 
+           transition-all duration-300 flex items-center justify-center gap-3;
+  }
+
+  .share-toast {
+    @apply fixed bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 bg-blue-600 text-white rounded-full 
+           shadow-2xl font-bold text-sm z-[10000] border border-white/20;
+  }
+}
+
+/* Map specific overrides */
+.leaflet-container {
+  @apply !rounded-[2.5rem] overflow-hidden shadow-2xl;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-500/20 rounded-full hover:bg-blue-500/40 transition-colors;
+}

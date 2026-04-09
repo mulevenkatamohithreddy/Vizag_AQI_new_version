@@ -1,0 +1,64 @@
+/* Premium UI Utilities */
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Leaflet Overrides */
+.glass-popup .leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.glass-popup .leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* Timeline Range Input Styling */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: #3b82f6;
+  border: 4px solid #0f172a;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  margin-top: -8px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5rem;
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+/* Custom transitions */
+.transition-dashboard {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive fixes for prints */
+@media print {
+  .fixed { position: absolute !important; }
+  .btn-premium, .glass-card button { display: none !important; }
+}
